@@ -318,6 +318,7 @@ IERC20(I_Token).transferFrom(msg.sender, address(this), I_Amount);
         updateFCLiquidationList();
         list= FCLiquidationList;
     }
+ ```
     
   - public으로 visible이 되어 있어서 `updateFCLiquidationList()` 함수를 실행하게 되는데 `FCLiquidationList.push(address(borrowerMarketPrice[marketPriceList[i]][k]));` 코드를 계속 실행하게 되면 `FCLiquidationList`를 무한히 늘릴 수 있게 됩니다.
   - `findArray()` `FCLiquiExistCheck()`는 FCLiquidationList를 반복문으로 사용하게 되어 길이를 무한정으로 늘려버리면 가스 사용을 급격히 늘릴 수 있게 됩니다.
@@ -339,6 +340,7 @@ IERC20(I_Token).transferFrom(msg.sender, address(this), I_Amount);
             }
         }
     }
+ ```
 ### High
 
 - `liquidate()`함수가 실행되어질 때 리스트의 길이가 길어져 가스 limit을 초과시켜 담보를 청산 못시키게 할 수 있습니다.
