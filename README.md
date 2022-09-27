@@ -226,7 +226,7 @@ IERC20(I_Token).transferFrom(msg.sender, address(this), I_Amount);
 - 1 Ehter를 담보로 예치하고 1 Ether \* 100 USDC의 50%인 50 USDC를 빌리게 됩니다.
 - repay() 함수를 이용하여 1 USDC를 상환한다고 하면 담보에 대한 USDC의 값을 계산하지 않고 인자(amount) 그대로 Ether를 보내주기 때문에 빌린 돈을 다 갚지 않아도 담보를 가져올 수 있게 된다고 생각합니다.
 
-### Ciritical
+### Information
 
 - Borrower가 빌린돈을 다 상환하지 않아도 일정 금액으로만 맡긴 담보를 모두 가져올 있기 때문에 빌리고 상환하기를 반복하여 Lending Contract가 가지고 있는 USDC를 모두 가져올 수 있게 됩니다.
 
