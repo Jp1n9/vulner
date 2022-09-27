@@ -286,7 +286,27 @@ IERC20(I_Token).transferFrom(msg.sender, address(this), I_Amount);
 - 함수명 : \_transfer
   - https://github.com/rkdnd/lending/blob/master/src/ERC20.sol
   - \_transfer의 함수의 가시성이 public으로 되어 있어서 누구나 \_transfer를 사용할 수 있게 됩니다.
+  ```
+     function _transfer(
+        address from,
+        address to,
+        uint256 amount
+    ) public {
+        require(from != address(0), "ERC20: transfer from the zero address");
+        require(to != address(0), "ERC20: transfer to the zero address");
 
+        uint256 fromBalance = _balances[from];
+        require(fromBalance >= amount, "ERC20: transfer amount exceeds balance");
+        unchecked {
+            _balances[from] = fromBalance - amount;
+            // Overflow not possible: the sum of all balances is capped by totalSupply, and the sum is preserved by
+            // decrementing then incrementing.
+            _balances[to] += amount;
+        }
+
+        emit Transfer(from, to, amount);
+    }
+   ```
 ### Critical
 
 - 담보나 Lending Contract에 들어있는 토큰들을 모두 가져올 수 있습니다.
